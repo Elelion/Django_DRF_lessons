@@ -13,5 +13,3 @@ class WomenSerializer(serializers.ModelSerializer):
         model = Women
         fields = ('title', 'cat_id')
 
-
-
