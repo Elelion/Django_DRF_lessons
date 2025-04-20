@@ -8,4 +8,6 @@ from women.serializers import WomenSerializer
 
 
 # вариант с сериализатором
-
+class WomenApiView(generics.ListAPIView):
+    queryset = Women.objects.all()
+    serializer_class = WomenSerializer
