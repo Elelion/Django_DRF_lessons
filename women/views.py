@@ -64,16 +64,28 @@ class WomenApiView(APIView):
         # **
 
         # пример #2
-        post_new = Women.objects.create(
-            title=request.data['title'],
-            content=request.data['content'],
-            cat_id=request.data['cat_id'],
-        )
+        # post_new = Women.objects.create(
+        #     title=request.data['title'],
+        #     content=request.data['content'],
+        #     cat_id=request.data['cat_id'],
+        # )
+
+        # **
 
         # пример #3
         # return Response({'post': model_to_dict(post_new)})
 
-        return Response({'post': WomenSerializer(post_new)}.data)
+        # **
+
+        # пример #4
+        # save - вызывает из serializers.py -> WomenSerializer -> crate()
+        serializer.save()
+
+        # пример #4 - убираем
+        # return Response({'post': WomenSerializer(post_new)}.data)
+
+        # serializer.data - ссылается на новый созданный объект
+        return Response({'post': serializer.data})
 #
 #         # автоматически вызовит serializes -> WomenSerializer -> create()
 #         serializer.save()
