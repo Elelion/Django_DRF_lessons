@@ -11,21 +11,8 @@ from women.serializers import WomenSerializer
 # **
 
 
-class WomenApiList(ListCreateAPIView):
-    """
-    реализует get + post
-    так же на нашей странице появиться поле для добавления POST записей
-    ListCreateAPIView - уже содержит все то, что ранее мы реализовали в ручную
-    в классе _WomenApiView и ранее
-    """
-
-    queryset = Women.objects.all()
-
-    # serializer_class - указание, какой сериализатор использовать для работы
-    serializer_class = WomenSerializer
-
-
-class _WomenApiView(APIView):
+# вариант #2 - с APIView
+class WomenApiView(APIView):
     def get(self, request):
         """
         Суть в том, что мы берем данные из БД и передаем их сериализатору
@@ -34,6 +21,19 @@ class _WomenApiView(APIView):
         просто не покажутся на выходе
         """
 
+        # пример #1
+        # return Response({'title': 'Angeline Jolie'})
+
+        # **
+
+        # пример #2
+        # .values() - возвращает список словарей вместо объектов!
+        # women_all = Women.objects.all().values()
+        # return Response({'posts': list(women_all)})
+
+        # **
+
+        # пример #3
         women_all = Women.objects.all()
 
         # передаем список w в сериализатор
@@ -50,6 +50,11 @@ class _WomenApiView(APIView):
         Если данные не соответствуют описанным полям → ошибка !!!
         """
 
+        # пример #1
+        # return Response({'title': 'Jennifer Lawrence'})
+
+        # **
+
         # делаем проверку
         # создадим сериализатор на основе поступивших данных
         serializer = WomenSerializer(data=request.data)
@@ -57,8 +62,42 @@ class _WomenApiView(APIView):
         # проверяем корректность поступивших данных
         serializer.is_valid(raise_exception=True)
 
+        # **
+
+        # пример #2
+        # post_new = Women.objects.create(
+        #     title=request.data['title'],
+        #     content=request.data['content'],
+        #     cat_id=request.data['cat_id'],
+        # )
+
+        # **
+
+        # пример #3
+        # return Response({'post': model_to_dict(post_new)})
+
+        # **
+
+        # пример #4
         # save - вызывает из serializers.py -> WomenSerializer -> crate()
         serializer.save()
 
+        # пример #4 - убираем
+        # return Response({'post': WomenSerializer(post_new)}.data)
+
         # serializer.data - ссылается на новый созданный объект
         return Response({'post': serializer.data})
+#
+#         # автоматически вызовит serializes -> WomenSerializer -> create()
+#         serializer.save()
+
+
+# **
+
+
+# вариант #1 - с сериализатором
+# class WomenApiView(generics.ListAPIView):
+#     queryset = Women.objects.all()
+#
+#     # serializer_class - указание, какой сериализатор использовать для работы с данными
+#     serializer_class = WomenSerializer

@@ -22,7 +22,21 @@ from women.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/v1/womenlist', WomenApiView.as_view()),
+    # **
 
-    path('api/v1/womenlist/<int:pk>', WomenApiView.as_view())
+    # старый класс
+
+    # path('api/v1/womenlist', WomenApiView.as_view()),
+    # path('api/v1/womenlist/<int:pk>', WomenApiView.as_view())
+
+    # **
+
+    # для нового класса WomenApiList
+    path('api/v1/womenlist', WomenApiList.as_view()),
+
+    path('api/v1/womenlist/<int:pk>', WomenApiList.as_view())
+
+    # **
+
+    # ...
 ]

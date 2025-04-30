@@ -5,3 +5,4 @@
 `step-2` Базовый класс APIView для представлений <br>
 `step-3` Введение в сериализацию <br>
 `step-4` Методы save(), create() и update() класса Serializer <br>
+`step-5` Класс ModelSerializer и представление ListCreateAPIView <br>
