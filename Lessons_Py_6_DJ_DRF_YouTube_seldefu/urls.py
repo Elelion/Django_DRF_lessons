@@ -31,10 +31,10 @@ urlpatterns = [
 
     # **
 
-    # для нового класса WomenApiList
-    path('api/v1/womenlist', WomenApiList.as_view()),
-
-    path('api/v1/womenlist/<int:pk>', WomenApiList.as_view())
+    # для новых классов
+    path('api/v1/womenlist/', WomenApiList.as_view()),
+    path('api/v1/womenlist/<int:pk>/', WomenApiUpdate.as_view()),
+    path('api/v1/womendetail/<int:pk>/', WomenApiDetailView.as_view()),
 
     # **
 
