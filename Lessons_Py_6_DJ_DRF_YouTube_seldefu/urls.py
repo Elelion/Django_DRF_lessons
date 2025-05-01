@@ -15,9 +15,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from rest_framework.routers import DefaultRouter
 
 from women.views import *
+
+
+# **
+
+
+router = routers.SimpleRouter()
+router.register(r'women', WomenViewSet)
+
+
+# **
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,11 +45,35 @@ urlpatterns = [
     # **
 
     # для новых классов
-    path('api/v1/womenlist/', WomenApiList.as_view()),
-    path('api/v1/womenlist/<int:pk>/', WomenApiUpdate.as_view()),
-    path('api/v1/womendetail/<int:pk>/', WomenApiDetailView.as_view()),
+    # path('api/v1/womenlist/', WomenApiList.as_view()),
+    # path('api/v1/womenlist/<int:pk>/', WomenApiUpdate.as_view()),
+    # path('api/v1/womendetail/<int:pk>/', WomenApiDetailView.as_view()),
 
     # **
 
-    # ...
+    # для нового класса WomenViewSet - роутер в ручную
+
+    # Метод	            HTTP-запрос	        Что делает
+    # list()	        GET /objects/	    Список всех объектов
+    # create()	        POST /objects/	    Создание нового объекта
+    # retrieve(pk)	    GET /obj/1/	        Один объект по ID
+    # update(pk)	    PUT /obj/1/	        Полное обновление объекта
+    # partial_update()	PATCH /obj/1/	    Частичное обновление
+    # destroy(pk)	    DELETE /obj/1/	    Удаление объекта
+
+    # path('api/v1/womenlist/', WomenViewSet.as_view({'get': 'list'})),
+    # path('api/v1/womenlist/<int:pk>/', WomenViewSet.as_view({'put': 'update'})),
+
+    # **
+
+    # для нового класса WomenViewSet - через SimpleRouter
+
+    # те тут мы говорим, создай мне все нужные URL-адреса для API по
+    # ViewSet WomenViewSet, и используй префикс women.
+    #
+    # роутер автоматически создаёт такие маршруты:
+    # GET+POST+PUT+PATCH+DELETE
+
+    path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/women/
+
 ]

@@ -1,5 +1,5 @@
 from django.forms import model_to_dict
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from rest_framework.generics import ListCreateAPIView, UpdateAPIView, \
     RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
@@ -12,35 +12,13 @@ from women.serializers import WomenSerializer
 # **
 
 
-class WomenApiList(ListCreateAPIView):
+# классы что и ниже но с соблюдением DRY
+
+
+class WomenViewSet(viewsets.ModelViewSet):
     """
-    реализует get + post
-    так же на нашей странице появиться поле для добавления POST записей
-    ListCreateAPIView - уже содержит все то, что ранее мы реализовали в ручную
-    в классе _WomenApiView и ранее
-    """
-
-    queryset = Women.objects.all()
-
-    # serializer_class - указание, какой сериализатор использовать для работы
-    serializer_class = WomenSerializer
-
-
-class WomenApiUpdate(UpdateAPIView):
-    """
-    содержит в себе PUT + PATCH из UpdateAPIView
-    """
-
-    queryset = Women.objects.all()
-    serializer_class = WomenSerializer
-
-
-class WomenApiDetailView(RetrieveUpdateDestroyAPIView):
-    """
-    изменение, чтение и добавление отдельной записи (CRUD запросы)
-    все наследуется от RetrieveUpdateDestroyAPIView
-
-    url: http://localhost:8000/api/v1/womendetail/9/
+    что бы убрать возможность редактирования данныз в WEB, наследуемся
+    не от ModelViewSet, а от ReadOnlyModelViewSet
     """
 
     queryset = Women.objects.all()
@@ -49,8 +27,55 @@ class WomenApiDetailView(RetrieveUpdateDestroyAPIView):
 
 # **
 
+# в классах ниже везде нарушен принцип DRY, по этому мы комментируем все
+# и пишем классы с соблюдением DRY - выше
+
+# class _WomenApiList(ListCreateAPIView):
+#     """
+#     реализует get + post
+#     так же на нашей странице появиться поле для добавления POST записей
+#     ListCreateAPIView - уже содержит все то, что ранее мы реализовали в ручную
+#     в классе _WomenApiView и ранее
+#     """
+#
+#     queryset = Women.objects.all()
+#
+#     # serializer_class - указание, какой сериализатор использовать для работы
+#     serializer_class = WomenSerializer
+#
+#
+# class _WomenApiUpdate(UpdateAPIView):
+#     """
+#     содержит в себе PUT + PATCH из UpdateAPIView
+#     """
+#
+#     queryset = Women.objects.all()
+#     serializer_class = WomenSerializer
+#
+#
+# class _WomenApiDetailView(RetrieveUpdateDestroyAPIView):
+#     """
+#     изменение, чтение и добавление отдельной записи (CRUD запросы)
+#     все наследуется от RetrieveUpdateDestroyAPIView
+#
+#     url: http://localhost:8000/api/v1/womendetail/9/
+#     """
+#
+#     queryset = Women.objects.all()
+#     serializer_class = WomenSerializer
+
+
+# **
+
 
 # class _WomenApiView(APIView):
+#     """
+#     Базовый класс, как чистый View в Django.
+#     Ты сам пишешь методы get(), post(), put() и т. д.
+#     Полная ручная настройка.
+#     Используй, когда хочешь полный контроль.
+#     """
+#
 #     def get(self, request):
 #         """
 #         Суть в том, что мы берем данные из БД и передаем их сериализатору
