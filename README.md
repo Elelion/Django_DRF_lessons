@@ -8,4 +8,5 @@
 `step-5` Класс ModelSerializer и представление ListCreateAPIView <br>
 `step-6` Представления UpdateAPIView и RetrieveUpdateDestroyAPIView <br>
 `step-7` Viewsets и ModelViewSet <br>
+`step-8` Роутеры: SimpleRouter и DefaultRouter <br>
 

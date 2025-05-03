@@ -25,7 +25,13 @@ from women.views import *
 # **
 
 
-router = routers.SimpleRouter()
+# DefaultRouter -  Добавляет красивую стартовую страницу API по
+# адресу /api/v1/ (как меню всех маршрутов)
+# **
+# SimpleRouter -Не добавляет стартовую страницу API по адресу /api/v1/
+
+router = routers.DefaultRouter()
+# router = routers.SimpleRouter()
 router.register(r'women', WomenViewSet)
 
 
