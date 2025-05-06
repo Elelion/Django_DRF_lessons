@@ -30,9 +30,9 @@ from women.views import *
 # **
 # SimpleRouter -Не добавляет стартовую страницу API по адресу /api/v1/
 
-router = routers.DefaultRouter()
+# router = routers.DefaultRouter()
 # router = routers.SimpleRouter()
-router.register(r'women', WomenViewSet)
+# router.register(r'women', WomenViewSet)
 
 
 # **
@@ -80,6 +80,15 @@ urlpatterns = [
     # роутер автоматически создаёт такие маршруты:
     # GET+POST+PUT+PATCH+DELETE
 
-    path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/women/
+    # path('api/v1/', include(router.urls)),  # http://127.0.0.1:8000/api/v1/women/
+
+    # **
+
+    # делаем все для ограничения доступа - permissions
+
+    path('api/v1/women/', WomenAPIList.as_view()),
+    path('api/v1/women/<int:pk>/', WomenAPIUpdate.as_view()),
+    path('api/v1/womendelete/<int:pk>/', WomenAPIDestroy.as_view()),
+
 
 ]

@@ -9,4 +9,4 @@
 `step-6` Представления UpdateAPIView и RetrieveUpdateDestroyAPIView <br>
 `step-7` Viewsets и ModelViewSet <br>
 `step-8` Роутеры: SimpleRouter и DefaultRouter <br>
-
+`step-9` Ограничения доступа (permissions) <br>

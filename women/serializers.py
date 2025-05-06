@@ -17,11 +17,16 @@ class WomenSerializer(serializers.ModelSerializer):
     тк наш сериализатор связан с моделями, нужно использовать -> ModelSerializer
     по этому все что было в преыдуших уроках с 1 по 4 - мы убираем
 
+    user - поле берем как и в модели, и указываем, что в скрытом поле будет
+    прописан текущий авторизованный пользователь
+
     model - указываем модель с которой работаем
     fields - указываем поля модели которые нам нужны
     """
 
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
+
     class Meta:
         model = Women
-        fields = ('title', 'content', 'cat')
+        fields = '__all__'
 

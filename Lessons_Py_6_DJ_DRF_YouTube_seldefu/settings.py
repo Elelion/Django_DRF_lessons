@@ -139,5 +139,10 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',  # только API в браузере
         'rest_framework.renderers.BrowsableAPIRenderer',  # включить CRUD в браузере
-    ]
+    ],
+
+    # указываем какому типу пользователей будет дан доступ
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
 }
