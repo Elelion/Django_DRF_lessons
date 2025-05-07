@@ -41,6 +41,10 @@ from women.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # для login http://localhost:8000/api/v1/drf-auth/login/
+    # для logout http://localhost:8000/api/v1/drf-auth/logout/
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
+
     # **
 
     # старый класс

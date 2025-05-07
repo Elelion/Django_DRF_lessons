@@ -28,7 +28,7 @@ class WomenAPIList(ListCreateAPIView):
 
     # по умолчанию возьмется permission из
     # settings -> 'rest_framework.permissions.AllowAny',
-    # permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, )
 
 
 class WomenAPIUpdate(RetrieveUpdateAPIView):

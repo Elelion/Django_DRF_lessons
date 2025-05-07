@@ -10,3 +10,4 @@
 `step-7` Viewsets и ModelViewSet <br>
 `step-8` Роутеры: SimpleRouter и DefaultRouter <br>
 `step-9` Ограничения доступа (permissions) <br>
+`step-10`  Авторизация и аутентификация. Session-based authentication <br>
