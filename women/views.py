@@ -1,10 +1,12 @@
 from django.forms import model_to_dict
 from rest_framework import generics, viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.generics import ListCreateAPIView, UpdateAPIView, \
     RetrieveAPIView, RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView, \
     RetrieveDestroyAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, \
+    IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -13,7 +15,7 @@ from women.permissions import IsAdminReadOnly, IsOwnerOrReadOnly
 from women.serializers import WomenSerializer
 
 
-# ** -----> 4:57
+# ** -----> 3:55
 
 # делаем все для ограничения доступа - permissions
 
@@ -34,7 +36,10 @@ class WomenAPIList(ListCreateAPIView):
 class WomenAPIUpdate(RetrieveUpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+
+    # конкретизируем способ аутентификации
+    authentication_classes = (TokenAuthentication, )
 
 
 class WomenAPIDestroy(RetrieveDestroyAPIView):
