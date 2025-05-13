@@ -12,3 +12,4 @@
 `step-9` Ограничения доступа (permissions) <br>
 `step-10` Авторизация и аутентификация. Session-based authentication <br>
 `step-11` Аутентификация по токенам. Пакет Djoser <br>
+`step-12` Делаем авторизацию по JWT-токенам <br>

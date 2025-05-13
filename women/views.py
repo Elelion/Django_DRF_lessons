@@ -15,7 +15,8 @@ from women.permissions import IsAdminReadOnly, IsOwnerOrReadOnly
 from women.serializers import WomenSerializer
 
 
-# ** -----> 3:55
+# **
+
 
 # делаем все для ограничения доступа - permissions
 
@@ -39,7 +40,8 @@ class WomenAPIUpdate(RetrieveUpdateAPIView):
     permission_classes = (IsAuthenticated, )
 
     # конкретизируем способ аутентификации
-    authentication_classes = (TokenAuthentication, )
+    # если оставить то потребуются обычные токены, а у нас включен JWT
+    # authentication_classes = (TokenAuthentication, )
 
 
 class WomenAPIDestroy(RetrieveDestroyAPIView):
