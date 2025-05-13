@@ -5,6 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.generics import ListCreateAPIView, UpdateAPIView, \
     RetrieveAPIView, RetrieveUpdateDestroyAPIView, RetrieveUpdateAPIView, \
     RetrieveDestroyAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, \
     IsAuthenticated
 from rest_framework.response import Response
@@ -25,6 +26,24 @@ from women.serializers import WomenSerializer
 # IsAdminUser - только для администраторов
 # IsAuthenticatedOrReadOnly - только для авторизованных или всем, но для чтения
 
+class WomenAPIListPagination(PageNumberPagination) :
+    """
+    делаем свой класс пагинации, который будет применим для
+    конкретного дочернего класса
+
+    page_size - кол-во записей на стр
+    page_size_query_param - &page_size=4 - можем добавлять значения в url
+    max_page_size - максимальное значение которое можно задать для &page_size=4
+    например если значение max_page_size=2, а мы пишем
+    http://localhost:8000/api/v1/women/?page=2&page_size=6
+    то выведено будет max_page_size=2, те 2 записи
+    """
+
+    page_size = 4
+    page_size_query_param = 'page_size'
+    max_page_size = 10
+
+
 class WomenAPIList(ListCreateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
@@ -32,6 +51,7 @@ class WomenAPIList(ListCreateAPIView):
     # по умолчанию возьмется permission из
     # settings -> 'rest_framework.permissions.AllowAny',
     permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = WomenAPIListPagination  # ссылка на наш класс
 
 
 class WomenAPIUpdate(RetrieveUpdateAPIView):
